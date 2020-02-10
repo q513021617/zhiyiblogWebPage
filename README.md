@@ -2,7 +2,7 @@
 
 zhiyiblog的前端部分
 
-<a href="www.zhiyigo.cn">在线演示</a>
+<a href="http://www.zhiyigo.cn">在线演示</a>
 
 ## Project 安装
 ```

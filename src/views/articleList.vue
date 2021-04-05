@@ -3,16 +3,7 @@
   <div style="background-color:#f4f5f5;">
       <h1 style="text-align:center;">文章列表</h1>
 
-      <div class="container" height="1200px;">
-<!-- bg-variant="Light"
-
-:bg-variant="bgchange[index]?'primary':''"
-
-:class="{'active-section':showTxt==0}"
-          :class="{'bgcolor':bgchange[index]==true}"
-
-               @click="linktoFunc(item.id)"
- -->
+      <div class="container">
       
       <router-link :to="'/articleDetail/'+ item.id"  v-for="item,index in  articleDataList" class="nocolor">
       <b-card
@@ -26,14 +17,10 @@
          
              >
 
-          <!-- <router-link to="/articleDetail"> -->
 
            <b-card-text>
                    {{item.articleContent.substring(0,50)}}........
             </b-card-text>
-
-          <!-- </router-link> -->
-              
 
     
               </b-card> 
@@ -122,7 +109,9 @@ export default {
 </script>
 
 <style>
-
+.container{
+  height: 550px;
+}
 .nocolor{
   text-decoration: none;color: #323232;
 }

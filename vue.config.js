@@ -8,11 +8,11 @@ module.exports = {
   devServer: {
     proxy: { //配置代理，解决跨域请求后台数据的问题
       '/blogapi/': {
-        target: 'http://www.zhiyigo.cn:9888/', //后台接口
+        target: 'http://www.zhiyigo.cn/blogapi/', //后台接口
         ws: true, //是否跨域
         changeOrigin: true,
         pathRewrite: {
-          '^/api':'/'
+          '^/blogapi':'/'
         }
       }
     }

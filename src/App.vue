@@ -40,7 +40,7 @@
 <router-view></router-view>
 
 
- <div id="foot" class="container-fluid" style="top:60px;">
+ <div id="foot" class="container-fluid">
    
         <div id="container">
             <p class="leftfloat">Copyright 2018-2020 Zhiyigo.cn culture All Rights Reserved<a href="http://beian.miit.gov.cn">蜀ICP备20002097号</a></p>

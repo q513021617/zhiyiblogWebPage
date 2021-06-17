@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 
 module.exports = {
-
+  configureWebpack: { externals: 'hls.js' },
     // 选项...
   publicPath: './', //发布路径,用相对路径，不然会报错
   lintOnSave: false, //是否开启eslint校验

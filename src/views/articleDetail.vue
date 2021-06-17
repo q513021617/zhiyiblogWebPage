@@ -74,15 +74,16 @@ export default {
   align-items: center;
   min-height: 1500px;
 }
-pre code {
+ pre code {
     font-size: inherit;
     color: inherit;
     word-break: normal;
     background: saddlebrown;
     min-height: 50px;
     display: flex;
-    color: white;
+    color: white !important;
     align-items: center;
     border-radius: 7px;
+    padding: 10px;
 }
 </style>

@@ -2,7 +2,7 @@
   <div id="app">
     <div id="head" class="container">
       <div class="head_logo leftfloat">
-        <a href="#">
+        <a href="/#/">
           <img src="/images/logo.gif" alt="" title="" />
         </a>
       </div>
@@ -26,10 +26,24 @@
         </div>
       </ul>
     </div>
-    <div style="min-height:1200px;height:auto;">
-        <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+  
+    <div style="min-height: 1200px; height: auto">
+      <div class="fixed-player">
+    <aplayer
+        autoplay
+        :music="{
+          title: '告白气球',
+          author: '告白气球 - 周杰伦',
+          url: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
+          pic: 'https://www.9ku.com/images/player/logo.png',
+          lrc: '[00:00.00]lrc here\n[00:01.00]aplayer',
+        }"
+      >
+      </aplayer>
+  </div>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
 
     <div id="foot" class="container-fluid">
@@ -51,9 +65,9 @@
 </template>
 
 <script>
-
 import cookieOption from "./tools/cooks";
 import httpmethods from "./http";
+import Aplayer from 'vue-aplayer'
 import "../public/js/baseUrl.js";
 export default {
   name: "app",
@@ -62,6 +76,9 @@ export default {
       islogin: false,
       user: {},
     };
+  },
+  components:{
+    Aplayer
   },
   methods: {
     queryUser: function (id) {
@@ -122,4 +139,19 @@ canvas {
 body {
   position: relative;
 }
+.fixed-player{
+  width: 500px;
+  position: fixed;
+  right: -450px;
+  top: 50%;
+  z-index: 99999;
+}
+.fixed-player-out{
+right: 1px;
+}
+.fixed-player:hover{
+  right: 1px;
+  transition: right 1s;
+}
+
 </style>

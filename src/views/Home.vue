@@ -65,7 +65,7 @@
                         <i>{{timeArr[index].day}}</i>
                         <span>{{timeArr[index].month}}</span>
                         <div class="new_text leftfloat">
-                            <h3> <router-link :to="'/articleDetail/'+article.id">{{article.title}}</router-link></h3>
+                            <h3> <router-link :to="'/articleDetail?id='+article.id">{{article.title}}</router-link></h3>
                             <p>{{article.articleContent.substring(0,20)}}</p>
                         </div>
                     </div>

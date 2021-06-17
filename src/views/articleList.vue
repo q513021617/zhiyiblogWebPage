@@ -1,6 +1,8 @@
 <template>
-  <div style="background-color: #f4f5f5;height:1200px;">
-    <h1 style="text-align: center;margin-top:50px;">文章列表</h1>
+  <div class="article-page">
+    <!-- <iframe src="https://kailoveq.github.io/Code-scroll/dist/index.html" class="codeblock"></iframe> -->
+    <iframe src="./code/index.html" class="codeblock"></iframe>
+    <!-- <h1 style="text-align: center;margin-top:50px;">文章列表</h1> -->
 
     <div class="article-container">
      
@@ -82,7 +84,7 @@ export default {
     },
   },
   components: {
-    Pagehelper,
+    Pagehelper
   },
   created: function () {
     this.getArticle(0);
@@ -91,8 +93,15 @@ export default {
 </script>
 
 <style>
+.article-page{
+  background-color: white;
+  height:1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .article-container {
-  min-height: 1050px;
+  min-height: 850px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,14 +110,27 @@ export default {
   text-decoration: none;
   color: #323232;
 }
+.card{
+ 
+  box-shadow: 0 10px 35px 2px rgb(0 0 0 / 15%), 0 5px 15px rgb(0 0 0 / 7%), 0 2px 5px -5px rgb(0 0 0 / 10%) !important;
+}
+.card-footer{
+  width: 90% !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.125) !important;
+}
 .article-item{
   width: 90%;
-  height: 150px;
+  height: 120px;
   margin-top: 10px;
 }
 .article-item:hover
 { 
 background-color:green;
 color: aliceblue;
+}
+.codeblock{
+  width: 90%;
+  height: 230px;
 }
 </style>

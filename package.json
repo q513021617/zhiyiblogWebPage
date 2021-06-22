@@ -17,6 +17,8 @@
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.1",
     "portal-vue": "^2.1",
+    "pwa": "^1.9.7",
+    "register-service-worker": "^1.7.1",
     "vue": "^2.6.10",
     "vue-aplayer": "^1.6.1",
     "vue-pdf": "^4.3.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "^4.1.0",
     "@vue/cli-plugin-vuex": "^4.1.0",
     "@vue/cli-service": "^4.1.0",

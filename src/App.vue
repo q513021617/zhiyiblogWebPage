@@ -33,13 +33,9 @@
       <div class="fixed-player">
         <aplayer
           autoplay
-          :music="{
-            title: '告白气球',
-            author: '告白气球 - 周杰伦',
-            url: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
-            pic: 'https://www.9ku.com/images/player/logo.png',
-            lrc: '[00:00.00]lrc here\n[00:01.00]aplayer',
-          }"
+          :list="musicList"
+          :music="musicList[0]"
+          showLrc
         >
         </aplayer>
       </div>
@@ -71,18 +67,37 @@ import cookieOption from "./tools/cooks";
 import httpmethods from "./http";
 import Aplayer from "vue-aplayer";
 import "../public/js/baseUrl.js";
+import {queryMusicList} from "@/api/music";
 export default {
   name: "app",
   data() {
     return {
       islogin: false,
       user: {},
+      musicList:[{
+            title: '告白气球',
+            author: '告白气球 - 周杰伦',
+            url: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
+            pic: 'https://www.9ku.com/images/player/logo.png',
+            lrc: '[00:00.00]lrc here\n[00:01.00]aplayer',
+          }]
     };
   },
   components: {
     Aplayer,
   },
   methods: {
+    getAllMusicList(){
+      queryMusicList(0,999).then((res)=>{
+        let tempmusiclist=res.data.data.content;
+        console.log(tempmusiclist)
+        tempmusiclist.forEach(element => {
+          this.musicList.push(element)
+          // debugger
+        });
+        
+      })
+    },
     queryUser: function (id) {
       var _this = this;
       if (id == null || id == undefined || id == "") {
@@ -125,6 +140,7 @@ export default {
   },
   mounted() {
     console.log("----mounted----");
+    this.getAllMusicList();
   },
 };
 </script>

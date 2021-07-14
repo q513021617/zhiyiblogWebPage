@@ -44,7 +44,7 @@ export default {
                 
                 console.log(this.bookList)
                 this.$forceUpdate();
-                debugger
+                // debugger
             })
         },
         gotobook(id){
@@ -69,7 +69,21 @@ export default {
 .bookcontainer-content{
  width: 90%;
 }
-.card-columns{
+
+@media screen and (max-width: 600px) {
+    .card-columns{
+    column-count: 1 !important;
+}
+}
+@media screen and (min-width: 600px) and (max-width: 800px) {
+    .card-columns{
+    column-count: 3 !important;
+}
+}
+
+@media screen and (min-width: 800px) and (max-width: 2200px){
+    .card-columns{
     column-count: 5 !important;
+}
 }
 </style>

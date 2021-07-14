@@ -3,8 +3,11 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import ArticleList from '@/views/articleList.vue'
 import ArticleDetail from '@/views/articleDetail.vue'
+import personCenter from '@/views/personCenter.vue'
+import Personinfo from '@/views/Personinfo.vue'
 import BookDetail from '@/views/BookDetail.vue'
 import BookList from '@/views/BookList.vue'
+import booktags from '@/views/booktags.vue'
 import AboutMe from '@/views/AboutMe.vue'
 Vue.use(VueRouter)
 
@@ -27,10 +30,10 @@ const routes = [
     name: 'bookList',
     component: BookList
   },
+
   {
     path: '/articleList',
-    name: 'articleList',
-   
+    name: 'articleList',   
     component: ArticleList
   },
   {
@@ -41,8 +44,29 @@ const routes = [
   },
   {
     path: '/aboutMe',
-    name: 'aboutMe',
-   
+    name: 'aboutMe',   
+    component: AboutMe
+  },
+  {
+    path: '/personCenter',
+    name: 'personCenter',   
+    component: personCenter,
+    children:[
+
+      {
+      path: 'personinfo',
+      name: 'personinfo',   
+      component: Personinfo
+    },{
+      path: 'booktags',
+      name: 'booktags',   
+      component: booktags
+      }
+    ]
+  },
+  {
+    path: '/aboutMe',
+    name: 'aboutMe',   
     component: AboutMe
   }
 ]

@@ -22,21 +22,24 @@
         <li>
           <router-link to="/bookList">朴树书屋 </router-link>
         </li>
-        <div class="head_userstatus rightfloat">
+        <div class="head_userstatus rightfloat" id="left-menu">
           <a href="login.html" v-if="!islogin"> 登录/注册 </a>
-          <a href="#" v-if="islogin"> 用户:{{ user.username }} </a>
+          <a href="#"  v-if="islogin"> 用户:{{ user.username }} </a>
+          <b-popover target="left-menu" triggers="hover" placement="top">
+            <template #title>个人中心</template>
+            <b-list-group>
+              <b-list-group-item href="#" @mouseover="mouseOver(0)" :active="currentIndex==0" @click="gotomenu(0)">个人信息</b-list-group-item>
+              <b-list-group-item href="#"  @mouseover="mouseOver(1)" :active="currentIndex==1" @click="gotomenu(1)">书签管理</b-list-group-item>
+              <b-list-group-item href="#"  @mouseover="mouseOver(2)" :active="currentIndex==2" @click="gotomenu(2)">退出登录</b-list-group-item>      
+            </b-list-group>
+          </b-popover>
         </div>
       </ul>
     </div>
 
     <div style="min-height: 1200px; height: auto">
       <div class="fixed-player">
-        <aplayer
-          autoplay
-          :list="musicList"
-          :music="musicList[0]"
-          showLrc
-        >
+        <aplayer autoplay :list="musicList" :music="musicList[0]" showLrc>
         </aplayer>
       </div>
       <keep-alive>
@@ -67,36 +70,51 @@ import cookieOption from "./tools/cooks";
 import httpmethods from "./http";
 import Aplayer from "vue-aplayer";
 import "../public/js/baseUrl.js";
-import {queryMusicList} from "@/api/music";
+import { queryMusicList } from "@/api/music";
 export default {
   name: "app",
   data() {
     return {
       islogin: false,
       user: {},
-      musicList:[{
-            title: '告白气球',
-            author: '告白气球 - 周杰伦',
-            url: 'https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3',
-            pic: 'https://www.9ku.com/images/player/logo.png',
-            lrc: '[00:00.00]lrc here\n[00:01.00]aplayer',
-          }]
+      currentIndex:9,
+      musicList: [
+        {
+          title: "告白气球",
+          author: "告白气球 - 周杰伦",
+          url: "https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3",
+          pic: "https://www.9ku.com/images/player/logo.png",
+          lrc: "[00:00.00]lrc here\n[00:01.00]aplayer",
+        },
+      ],
     };
   },
   components: {
     Aplayer,
   },
   methods: {
-    getAllMusicList(){
-      queryMusicList(0,999).then((res)=>{
-        let tempmusiclist=res.data.data.content;
-        console.log(tempmusiclist)
-        tempmusiclist.forEach(element => {
-          this.musicList.push(element)
+    mouseOver(index){
+      this.currentIndex=index;
+    },
+    gotomenu(index){
+      if(index==2){
+        cookieOption.delCookie('userdata')
+        location.reload();
+        return
+      }
+      let arr=["/personCenter/personinfo","/personCenter/booktags"]
+      let menu=arr[index]
+      location.href="/#"+menu
+    },
+    getAllMusicList() {
+      queryMusicList(0, 999).then((res) => {
+        let tempmusiclist = res.data.data.content;
+        console.log(tempmusiclist);
+        tempmusiclist.forEach((element) => {
+          this.musicList.push(element);
           // debugger
         });
-        
-      })
+      });
     },
     queryUser: function (id) {
       var _this = this;
@@ -160,15 +178,15 @@ body {
 .fixed-player {
   width: 500px;
   position: fixed;
-  right: -450px;
-  top: 50%;
+  left: -450px;
+  top: 30%;
   z-index: 99999;
 }
 .fixed-player-out {
-  right: 1px;
+  left: 1px;
 }
 .fixed-player:hover {
-  right: 1px;
-  transition: right 1s;
+  left: 1px;
+  transition: left 1s;
 }
 </style>

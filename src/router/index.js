@@ -9,6 +9,8 @@ import BookDetail from '@/views/BookDetail.vue'
 import BookList from '@/views/BookList.vue'
 import booktags from '@/views/booktags.vue'
 import AboutMe from '@/views/AboutMe.vue'
+import ListPage from '@/components/game/ListPage'
+import RunPage from '@/components/game/RunPage'
 Vue.use(VueRouter)
 
 const routes = [
@@ -41,6 +43,16 @@ const routes = [
     name: 'articleDetail',
     props: true,
     component: ArticleDetail
+  },
+  {
+    path: '/gameListPage',
+    name: 'gameListPage',
+    component: ListPage
+  },
+  {
+    path: '/run/:rom',
+    name: 'RunPage',
+    component: RunPage
   },
   {
     path: '/aboutMe',

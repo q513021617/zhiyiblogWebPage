@@ -20,6 +20,9 @@
           <router-link to="/articleList">文章列表 </router-link>
         </li>
         <li>
+          <router-link to="/gameListPage">游戏列表 </router-link>
+        </li>
+        <li>
           <router-link to="/bookList">朴树书屋 </router-link>
         </li>
         <div class="head_userstatus rightfloat" id="left-menu">

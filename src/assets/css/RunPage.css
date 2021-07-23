@@ -3,5 +3,10 @@
 }
 
 .RunPage .screen-container {
+  display: flex;
   text-align: center;
+  justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
 }

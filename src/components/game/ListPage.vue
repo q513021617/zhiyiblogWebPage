@@ -11,8 +11,8 @@
           </p>
         </header>
         <b-list-group class="mb-4">
-          <router-link v-for="key in Object.keys(config.ROMS)" :key="key" :to="'/run/' + encodeURIComponent(key)" class="list-group-item">
-            {{key}}
+          <router-link v-for="key in gameList" :key="key.id" :to="'/run/' + key.id" class="list-group-item">
+            {{key.gameName}}
             <span class="float-right">&rsaquo;</span></router-link>
         </b-list-group>
       </div>
@@ -22,19 +22,36 @@
 <script>
 import '@/assets/css/ListPage.css'
 import config from '@/assets/script/config'
+
+import {queryGameDetail,
+  queryGameList,
+  saveGame,
+  delGame,} from '@/api/game'
 export default {
 
   data () {
     return {
       config: config,
-      start: null
+      gameList:[],
+      start: null,
+      pagesize:20
     }
   },
-  mounted () {
-
+  async mounted () {
+    await this.queryAllGameBypage(0);
+  
   },
+  
   methods: {
+    
+     queryAllGameBypage:async function (page) {
+      var _this = this;
 
+     let {data} =await queryGameList(page, _this.pagesize);
+      let tempdata = data.data.content;
+      debugger
+        _this.gameList = tempdata.slice(0, tempdata.length);
+    },
     handleDragOver (e) {
       e.preventDefault()
       e.dataTransfer.dropEffect = 'copy'
@@ -51,3 +68,6 @@ export default {
   }
 }
 </script>
+<style lang="css" scoped>
+
+</style>

@@ -16,7 +16,7 @@
           @click="linktoFunc(item.id)"
         >
           <b-card-text>
-            {{ item.articleContent.substring(0, 150) }}........
+            {{  splitContent(item.articleContent)}}........
           </b-card-text>
         </b-card>
    
@@ -51,6 +51,12 @@ export default {
     };
   },
   methods: {
+    splitContent(text){
+        if(document.body.clientWidth>1100){
+            return text.substring(0, 150);
+        }
+         return text.substring(0, 50);
+    },
     getArticle: function (page) {
       //   http://localhost:8888/api/aricle/0/4
       var _this = this;
@@ -92,7 +98,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .article-page{
   background-color: white;
   height:1200px;
@@ -132,5 +138,22 @@ color: aliceblue;
 .codeblock{
   width: 90%;
   height: 230px;
+}
+
+@media screen and (max-width: 600px) {
+    .card-columns{
+    column-count: 1 !important;
+}
+}
+@media screen and (min-width: 600px) and (max-width: 800px) {
+    .card-columns{
+    column-count: 3 !important;
+}
+}
+
+@media screen and (min-width: 800px) and (max-width: 2200px){
+    .card-columns{
+    column-count: 5 !important;
+}
 }
 </style>

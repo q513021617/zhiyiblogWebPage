@@ -6,8 +6,26 @@
           <img src="/images/logo.gif" alt="" title="" />
         </a>
       </div>
-
-      <ul class="head_menu rightfloat">
+    <b-sidebar id="sidebar-variant" title="菜单" shadow>
+      <span style="width:80%;">
+          <a href="login.html" v-if="!islogin"> 登录/注册 </a>
+          <span v-if="islogin">用户:{{ user.username }}</span>
+        </span>
+      <b-nav vertical>
+      <b-nav-item to="/home">首页</b-nav-item>
+      <b-nav-item to="/aboutMe">关于我</b-nav-item>
+      <b-nav-item to="/articleList">文章列表</b-nav-item>
+      <b-nav-item to="/gameListPage">游戏列表</b-nav-item>
+      <b-nav-item to="/bookList">朴树书屋</b-nav-item>
+      <b-nav-item @click="gotomenu(0)">个人信息</b-nav-item>
+      <b-nav-item @click="gotomenu(1)">书签管理</b-nav-item>
+      <b-nav-item @click="gotomenu(2)">退出登录</b-nav-item>
+      </b-nav>
+    </b-sidebar>
+    <div class="rightfloat">
+      <div v-b-toggle.sidebar-variant class="head_menu_icon"><b-icon icon="text-indent-right" variant="primary" font-scale="2"></b-icon></div>
+      <!-- <b-button ></b-button> -->
+        <ul class="head_menu ">
         <li>
           <!-- class="active" -->
           <router-link to="/home"> 首页 </router-link>
@@ -39,10 +57,12 @@
         </div>
       </ul>
     </div>
+      
+    </div>
 
     <div style="min-height: 1200px; height: auto">
-      <div class="fixed-player">
-        <aplayer autoplay :list="musicList" :music="musicList[0]" showLrc>
+      <div class="fixed-player" v-if="showMusic">
+        <aplayer autoplay="false" :list="musicList" :music="musicList[0]" showLrc>
         </aplayer>
       </div>
       <keep-alive>
@@ -81,15 +101,8 @@ export default {
       islogin: false,
       user: {},
       currentIndex:9,
-      musicList: [
-        {
-          title: "告白气球",
-          author: "告白气球 - 周杰伦",
-          url: "https://mp32.9ku.com/upload/128/2017/02/05/858423.mp3",
-          pic: "https://www.9ku.com/images/player/logo.png",
-          lrc: "[00:00.00]lrc here\n[00:01.00]aplayer",
-        },
-      ],
+      showMusic:false,
+      musicList: [],
     };
   },
   components: {
@@ -160,6 +173,7 @@ export default {
     this.queryUser(userid);
   },
   mounted() {
+    this.showMusic=windows.innerWidth>768;
     console.log("----mounted----");
     this.getAllMusicList();
   },
@@ -192,4 +206,38 @@ body {
   left: 1px;
   transition: left 1s;
 }
+
+.b-sidebar-body ul li{
+  text-align: center;
+}
+.b-sidebar-body span{
+  text-align: center;
+}
+#sidebar-variant{
+  width: 30%;
+}
+@media screen and (max-width: 1666px){
+  #foot{
+    display: none;
+  }
+  .head_menu{
+    display: none;
+  }
+  .head_menu_icon{
+  margin-top:19px;
+  }
+  .b-sidebar-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+@media screen and (min-width: 1667px){
+  .head_menu_icon{
+    display: none;
+  }
+}
+
 </style>

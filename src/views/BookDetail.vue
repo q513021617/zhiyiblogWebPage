@@ -5,11 +5,12 @@
       <div class="btn btn-primary" @click.stop="counterClock">逆时针</div>
       <div class="btn btn-primary" @click.stop="pdfPrintAll">全部打印</div>
       <div class="btn btn-primary" @click.stop="pdfPrint">部分打印</div>
-      <div class="btn btn-primary" @click.stop="addtag">添加到书签</div>
     </div>
 
+    <div class="btn btn-primary addTag" @click.stop="addtag">添加到书签</div>
     <div class="btn btn-primary top-btn" @click.stop="backTop">回到顶部</div>
 
+    <button class="last-page btn btn-primary" @click="changecurentPage(curPageNum=curPageNum-1)">上一页</button>
     <div class="pagination-com" id="top-pagination">
       <b-pagination
         v-model="curPageNum"
@@ -22,7 +23,6 @@
         <template v-slot:prev-text> <div>上一页</div></template>
         <template v-slot:next-text><div>下一页</div></template>
       </b-pagination>
-
       第
       <b-input
         id="inline-form-input-name"
@@ -61,7 +61,10 @@
       @link-clicked="page = $event"
     >
     </pdf>
-
+    <div style="width:80%;">
+      <button class="next-page btn btn-primary" @click="changecurentPage(curPageNum=curPageNum+1)">下一页</button>
+      <button class="next-page btn btn-primary" @click="changecurentPage(curPageNum=curPageNum+2)">跳一页</button>
+    </div>
     <div class="pagination-com">
       <b-pagination
         v-model="curPageNum"
@@ -74,7 +77,6 @@
         <template v-slot:prev-text> <div>上一页</div></template>
         <template v-slot:next-text><div>下一页</div></template>
       </b-pagination>
-
       第
       <b-input
         id="inline-form-input-name"
@@ -220,6 +222,12 @@ export default {
   bottom: 20%;
   z-index: 999;
 }
+.addTag{
+  position: fixed;
+  right: 10px;
+  bottom: 13%;
+  z-index: 999;
+}
 .pdf {
   width: 100%;
   display: flex;
@@ -259,5 +267,37 @@ export default {
 }
 .pagination-com {
   display: flex;
+}
+ .next-page{
+    width: 50%;
+    display: none;
+  }
+  .last-page{
+     width: 80%;
+    display: none;
+  }
+@media screen and (max-width: 600px) {
+  .pdf-tab{
+    display: none;
+  }
+  .pagination-com{
+    display: none;
+  }
+  .bookTile{
+    display: none;
+  }
+  .bookfont{
+    display: none;
+  }
+  .pdf span {
+    width: 100%;
+  }
+
+  .next-page{
+    display: inline-block;
+  }
+  .last-page{
+    display: inline-block;
+  }
 }
 </style>

@@ -16,6 +16,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './registerServiceWorker'
 
 Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 
 

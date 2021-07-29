@@ -31,7 +31,7 @@
     #head .head_userstatus {float: left; margin-left: 58px;}
     #head .head_userstatus a{text-decoration: none;color: #323232;font-size: medium;}
 
-    .area_title{margin-top: 60px;text-align: center;}
+    .area_title{margin-top: 60px;display: flex;flex-direction: column;align-items: center;}
     .area_title h2{height:20px; line-height: 20px;font-size: 20px;color: #363636;background: url(images/title_bg.png) no-repeat center 1px;font-weight:normal ;}
     .area_title p{color: #9f9f9f;font-size: 14px;line-height: 34px;}
     #banner{position: relative;}

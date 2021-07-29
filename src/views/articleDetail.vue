@@ -30,7 +30,7 @@
                  <b-avatar variant="info" :src="item.userAvatars"></b-avatar>
               </div>
             </template>
-            <h5 class="mt-0 mb-1">{{ item.userName }} </h5>
+            <div class="commit-username">{{ item.userName }}</div>
             <div class="mb-0 commit-text">
              {{ item.commitContent }}
             </div>
@@ -82,7 +82,7 @@ export default {
       return html;
     },
     getArticle: function (id) {
-      //   http://localhost:8888/api/aricle/0/4
+ 
       var _this = this;
       httpmethods.getDataFuc(
         {},
@@ -137,6 +137,15 @@ export default {
   text-align: center;
   display: flex;
   align-items: center;
+}
+.commit-username{
+  display: flex;
+  justify-content: flex-start;
+  font-weight: 800;
+}
+
+.b-sidebar-body div{
+  width: 90%;
 }
 .pdf-tab {
   position: fixed;

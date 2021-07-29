@@ -6,8 +6,7 @@
           <h1 class="mb-3">小霸王世界</h1>
           <p>致我们逝去的青春.</p>
           <p>
-            By john zhang
-          
+            By john zhang          
           </p>
         </header>
         <b-list-group class="mb-4">
@@ -15,6 +14,13 @@
             {{key.gameName}}
             <span class="float-right">&rsaquo;</span></router-link>
         </b-list-group>
+        
+    <Pagehelper
+      v-bind:tatolpage="tatolpage"
+      v-bind:curpage="curpage"
+      v-on:queryAllBypagechild="queryAllGameBypage"
+      ref="pagehp"
+    ></Pagehelper>
       </div>
     </div>
   </div>
@@ -22,11 +28,12 @@
 <script>
 import '@/assets/css/ListPage.css'
 import config from '@/assets/script/config'
-
+import Pagehelper from "@/components/pagehelper.vue";
 import {queryGameDetail,
   queryGameList,
   saveGame,
   delGame,} from '@/api/game'
+import { create } from 'nipplejs';
 export default {
 
   data () {
@@ -34,21 +41,28 @@ export default {
       config: config,
       gameList:[],
       start: null,
-      pagesize:20
+      pagesize:20,
+      tatolpage:0,
+      curpage:0
+
     }
   },
-  async mounted () {
-    await this.queryAllGameBypage(0);
-  
+  created () {
+    this.queryAllGameBypage(0);  
   },
-  
+  components:{
+    Pagehelper
+  },
   methods: {
     
      queryAllGameBypage:async function (page) {
+
       var _this = this;
+      this.curpage=page;
 
      let {data} =await queryGameList(page, _this.pagesize);
       let tempdata = data.data.content;
+      this.tatolpage= data.data.totalPages;
       debugger
         _this.gameList = tempdata.slice(0, tempdata.length);
     },

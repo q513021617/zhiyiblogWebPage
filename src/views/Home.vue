@@ -8,36 +8,29 @@
     <div class="area_title">
         <h2>我的开源项目</h2>
         <p>My github</p>
-        <ul class="service_list">
-            <li>
-                <!-- 102 -->
 
-                <a href="https://github.com/q513021617/zhiyiCMS"><div></div></a>
-                <h3>1,zhiyiCMS</h3>
-                <p>基于springboot和VUE开发的一款通用
-                    <br>后台管理系统</p>
-            </li>
+       <div style="width:80%;">
+            <b-card-group columns>
+        <b-card
+        :img-src="item.faceUrl"
+        :title="item.title"
+        img-alt="Image"
+        img-width="100"
+        img-height="100"
+        v-for="item,index in projectList"
+      :key="index"
+      @click="gotoProject(item.projectUrl)"
+    >
+      <b-card-text>
+        {{item.des}}
+      </b-card-text>
+    </b-card>
 
-            <li>
-                  <a href="https://github.com/q513021617/zhiyiblog"><div></div></a>
-                <h3>2,zhiyiblog</h3>
-                <p>基于zhiyiCMS开发的一款个人
-                    <br>博客主页</p>
-            </li>
+   
+  </b-card-group>
+       </div>
 
-            <li>
-                <a href="#"><div></div></a>
-                <h3>3,在线考试系统</h3>
-                <p>基于SSM框架开发的考试系统
-                    <br>考试系统</p>
-            </li>
-            <li>
-                 <a href="#"><div></div></a>
-                <h3>4,冲关答题系统</h3>
-                <p>支持手机端，PC端的
-                    <br>答题系统</p>
-            </li>
-        </ul>
+
     </div>
 
 </div>
@@ -105,7 +98,11 @@ export default {
   data() {
       return {
           timeArr:[],
-          articleDataList:[]
+          articleDataList:[],
+          projectList:[{title:"zhiyiCMS",des:"基于springboot和VUE开发的一款通用",type:"后台管理系统",projectUrl:"https://github.com/q513021617/zhiyiCMS",faceUrl:"/images/icon01.svg"},
+          {title:"zhiyiblog",des:"基于springboot和VUE开发的一款通用",type:"博客主页",projectUrl:"https://github.com/q513021617/zhiyiblog",faceUrl:"/images/icon01.svg"},
+          {title:"在线考试系统",des:"基于SSM框架开发的考试系统",type:"考试系统",projectUrl:"",faceUrl:"/images/icon01.svg"},
+          {title:"冲关答题系统",des:"支持手机端，PC端的",type:"答题系统",projectUrl:"",faceUrl:"/images/icon01.svg"}]
       }
   },
   methods:{
@@ -124,6 +121,9 @@ export default {
             _this.$forceUpdate();
             })
 
+      },
+      gotoProject:function(url){
+          location.href=url
       },
       returndata:function(index){
 

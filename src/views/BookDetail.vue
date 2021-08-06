@@ -8,6 +8,7 @@
     </div>
 
     <div class="btn btn-primary addTag" @click.stop="addtag">添加到书签</div>
+    <div class="btn btn-primary addTag" @click.stop="addtag">添加到书签</div>
     <div class="btn btn-primary top-btn" @click.stop="backTop">回到顶部</div>
 
     <button class="last-page btn btn-primary" @click="changecurentPage(curPageNum=curPageNum-1)">上一页</button>
@@ -15,7 +16,7 @@
       <b-pagination
         v-model="curPageNum"
         :total-rows="pageTotalNum"
-        limit="20"
+          limit="20"
         :per-page="1"
         aria-controls="my-table"
         @change="changePage"
@@ -291,6 +292,7 @@ export default {
   }
   .pdf span {
     width: 100%;
+    min-height: 800px;
   }
 
   .next-page{

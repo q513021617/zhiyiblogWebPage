@@ -30,10 +30,10 @@ function delCookie(name)
 
 
 
-let cookieOption = {
+ 
+export  {
     setCookie,
     getCookie,
     delCookie,
     Cookies
 }
-export default cookieOption

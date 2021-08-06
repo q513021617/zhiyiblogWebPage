@@ -83,6 +83,5 @@ export default {
 <style scoped>
 .col {
   min-width: 300px;
-  max-width: 60%;
 }
 </style>

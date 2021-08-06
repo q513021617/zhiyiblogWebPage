@@ -1,10 +1,10 @@
 <template>
   <div class="page-container">
     <h1 class="center">{{ title }}</h1>
-
+    <span>发表时间:{{postTime}}  </span>
     <div
       id="contentDIV"
-      style="position: relative; top: 50px; height: auto"
+      style="position: relative; top: 20px; height: auto"
     ></div>
     <div class="pdf-tab">
       <div class="btn btn-primary" v-b-toggle.sidebar-1>查看评论</div>
@@ -55,6 +55,7 @@ export default {
       articleid:"",
       content: "",
       commit: "",
+      postTime:"",
       articleList: [     
       ],
     };
@@ -93,6 +94,7 @@ export default {
 
           _this.title = data.title;
           _this.content = data.articleContent;
+          _this.postTime=data.postTime.split('T')[0];
           const contentH5 = document.getElementById("contentDIV");
           var temphtml = _this.convertHtml(_this.content);
           contentH5.innerHTML = temphtml;
@@ -116,6 +118,14 @@ export default {
 <style>
 .center {
   text-align: center;
+}
+@media screen and (max-width:600px){
+  .center{
+    font-size: 20px;
+  }
+}
+img{
+  width: 100%;
 }
 .list-unstyled li{
   margin-top: 1rem;

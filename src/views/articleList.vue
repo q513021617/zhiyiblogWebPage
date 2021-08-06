@@ -1,9 +1,6 @@
 <template>
   <div class="article-page">
-    <!-- <iframe src="https://kailoveq.github.io/Code-scroll/dist/index.html" class="codeblock"></iframe> -->
     <iframe src="./code/index.html" class="codeblock"></iframe>
-    <!-- <h1 style="text-align: center;margin-top:50px;">文章列表</h1> -->
-
     <div class="article-container">
      
         <b-card
@@ -47,7 +44,7 @@ export default {
       bgchange: [],
       tatolpage: 0,
       curpage: 0,
-      pagesize: 7,
+      pagesize: 5,
     };
   },
   methods: {
@@ -127,14 +124,16 @@ export default {
 }
 .article-item{
   width: 90%;
-  height: 120px;
+  min-height: 120px;
   margin-top: 10px;
 }
+
 .article-item:hover
 { 
 background-color:green;
 color: aliceblue;
 }
+
 .codeblock{
   width: 90%;
   height: 230px;
@@ -143,7 +142,11 @@ color: aliceblue;
 @media screen and (max-width: 600px) {
     .card-columns{
     column-count: 1 !important;
-}
+  }
+  h4{
+    font-size: 1rem;
+    font-weight: 800;
+  }
 }
 @media screen and (min-width: 600px) and (max-width: 800px) {
     .card-columns{

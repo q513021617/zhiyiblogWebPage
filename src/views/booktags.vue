@@ -21,20 +21,22 @@ export default {
     return {
       fields: ["id", "name", "time", "opt"],
       items: [],
-      contents:[]
+      contents: [],
     };
   },
   created() {
     this.getMarkList();
   },
   methods: {
-    async enterone(obj){
-        console.log(obj)
-       let temparr=this.contents.filter((item)=>{return item.id==obj.id})
-       temparr=temparr[0]
-    //    debugger
-    //    this.$router.push("/bookDetail?id="+temparr.id+"&bookPage="+temparr.bookPage)
-       location.href="/#/bookDetail?id="+temparr.bookId+"&bookPage="+temparr.bookPage
+    async enterone(obj) {
+      console.log(obj);
+      let temparr = this.contents.filter((item) => {
+        return item.id == obj.id;
+      });
+      temparr = temparr[0];
+      //    debugger
+      location.href =
+        "/#/bookDetail?id=" + temparr.bookId + "&bookPage=" + temparr.bookPage;
     },
     async delone(item) {
       await delBookMarTag(item.id);
@@ -42,10 +44,10 @@ export default {
       this.getMarkList();
     },
     getMarkList: async function () {
-     let user=localStorage.getItem("userData")
-    this.userinfo=JSON.parse(user)
+      let user = localStorage.getItem("userData");
+      this.userinfo = JSON.parse(user);
       this.items = [];
-      let { data } = await queryBookMarTagList(0, 20,this.userinfo.id);
+      let { data } = await queryBookMarTagList(0, 20, this.userinfo.id);
       this.contents = data.data.content;
       this.contents.forEach((element) => {
         this.items.push({

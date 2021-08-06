@@ -160,3 +160,17 @@ export default {
   }
 }
 </script>
+<style lang="css" scoped>
+@media screen and (min-width: 1028px)
+{
+  .card-columns {
+    column-count: 4 !important;
+  }
+}
+@media screen and (max-width: 1027px)
+{
+  .card-columns {
+    column-count: 1 !important;
+  }
+}
+</style>

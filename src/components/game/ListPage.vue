@@ -12,15 +12,22 @@
         <b-list-group class="mb-4">
           <router-link v-for="key in gameList" :key="key.id" :to="'/run/' + key.id" class="list-group-item">
             {{key.gameName}}
-            <span class="float-right">&rsaquo;</span></router-link>
+            <span class="float-right">&rsaquo;</span>
+          </router-link>
         </b-list-group>
         
-    <Pagehelper
-      v-bind:tatolpage="tatolpage"
-      v-bind:curpage="curpage"
-      v-on:queryAllBypagechild="queryAllGameBypage"
-      ref="pagehp"
-    ></Pagehelper>
+        <b-pagination
+        v-model="curpage"
+        :total-rows="tatolpage"
+        limit="20"
+        :per-page="1"
+        aria-controls="my-table"
+        @change="queryAllGameBypage"
+      >
+        <template v-slot:prev-text> <div>上一页</div></template>
+        <template v-slot:next-text><div>下一页</div></template>
+      </b-pagination>
+
       </div>
     </div>
   </div>
@@ -43,12 +50,11 @@ export default {
       start: null,
       pagesize:20,
       tatolpage:0,
-      curpage:0
-
+      curpage:1
     }
   },
   created () {
-    this.queryAllGameBypage(0);  
+    this.queryAllGameBypage(1);  
   },
   components:{
     Pagehelper
@@ -60,10 +66,10 @@ export default {
       var _this = this;
       this.curpage=page;
 
-     let {data} =await queryGameList(page, _this.pagesize);
+     let {data} =await queryGameList(page-1, _this.pagesize);
       let tempdata = data.data.content;
       this.tatolpage= data.data.totalPages;
-      debugger
+      // debugger
         _this.gameList = tempdata.slice(0, tempdata.length);
     },
     handleDragOver (e) {

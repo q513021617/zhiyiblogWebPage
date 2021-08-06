@@ -20,14 +20,14 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="密码:" label-for="input-3">
+      <!-- <b-form-group id="input-group-2" label="密码:" label-for="input-3">
         <b-form-input
           id="input-3"
           v-model="form.password"
           placeholder="请输入密码......."
           required
         ></b-form-input>
-      </b-form-group>
+      </b-form-group> -->
 
       <b-form-group id="input-group-2" label="手机号码:" label-for="input-4">
         <b-form-input
@@ -38,7 +38,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group label="性别:" >
+      <b-form-group label="性别:" class="sex">
       <b-form-radio v-model="form.sex"  name="some-radios" value="1">男</b-form-radio>
       <b-form-radio v-model="form.sex"  name="some-radios" value="2">女</b-form-radio>
     </b-form-group>
@@ -60,6 +60,7 @@ export default {
   created() {
     let userStr=localStorage.getItem("userData");
     this.form=JSON.parse(userStr)
+    this.getUserInfo()
   },
   methods: {
     async onSubmit() {
@@ -79,4 +80,7 @@ export default {
 </script>
 
 <style>
+.sex div{
+  display: flex;
+}
 </style>

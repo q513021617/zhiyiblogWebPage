@@ -33,7 +33,7 @@ const getRequestIdentify = (config, isReuest = false) => {
             let requestData = getRequestIdentify(config, true);
             removePending(requestData, true);
             // 为请求头添加token 验证的 Authorization 字段
-            // config.headers.Authorization = window.sessionStorage.getItem('token')
+            config.headers.Authorization = "Bearer "+window.localStorage.getItem('token')
             config.cancelToken = new CancelToken((c) => {
                 pending[requestData] = c
             });

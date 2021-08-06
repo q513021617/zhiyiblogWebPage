@@ -185,7 +185,7 @@ navMenuItems.forEach(item => {
 }
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
 
 :root {
@@ -210,6 +210,7 @@ navMenuItems.forEach(item => {
 .wrapper {
   /* 栅格布局，居中卡片 */
   display: grid;
+
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -222,10 +223,25 @@ navMenuItems.forEach(item => {
   /* 每个列之间的空隙是12px */
   column-gap: 12px;
   /* 卡片总宽度为627px */
-  width: 1027px;
+  width: 100%;
   /* 卡片总高度为374px */
   height: 674px;
   box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.18);
+}
+
+@media screen and (max-width:377px){
+  .profile-card{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .profile-image{
+    display: none;
+  }
+  .content{
+    width: 100%;
+    }
+    .wrapper{
+      width: 100% !important;
+    }
 }
 
 .profile-image {

@@ -2,10 +2,8 @@
   <div class="page-container">
     <h1 class="center">{{ title }}</h1>
     <span>发表时间:{{postTime}}  </span>
-    <div
-      id="contentDIV"
-      style="position: relative; top: 20px; height: auto"
-    ></div>
+   
+    <vue-markdown class="article" :source="content" v-highlight></vue-markdown>
     <div class="pdf-tab">
       <div class="btn btn-primary" v-b-toggle.sidebar-1>查看评论</div>
     </div>
@@ -45,6 +43,7 @@
 <script>
 import httpmethods from "@/http";
 import "../../public/js/baseUrl.js";
+import VueMarkdown from 'vue-markdown'
 import { addArticleCommit,querygetArticleCommitList } from "@/api/article";
 import { makeToast} from "@/tools/msg";
 export default {
@@ -76,12 +75,6 @@ export default {
          this.articleList=data.slice(0,data.length)
          console.log(this.articleList);
     },
-    convertHtml: function (text) {
-      var converter = new showdown.Converter();
-
-      var html = converter.makeHtml(text);
-      return html;
-    },
     getArticle: function (id) {
  
       var _this = this;
@@ -95,20 +88,19 @@ export default {
           _this.title = data.title;
           _this.content = data.articleContent;
           _this.postTime=data.postTime.split('T')[0];
-          const contentH5 = document.getElementById("contentDIV");
-          var temphtml = _this.convertHtml(_this.content);
-          contentH5.innerHTML = temphtml;
           _this.$forceUpdate();
         }
       );
     },
   },
-  components: {},
+  components: {
+    VueMarkdown
+  },
   mounted() {
     let id = this.$route.query.id;
     this.articleid=id;
     console.log(id);
-    // alert(id)
+    
     this.getArticle(id);
     this.queryCommit(id);
   },
@@ -130,7 +122,7 @@ img{
 .list-unstyled li{
   margin-top: 1rem;
 }
-#contentDIV {
+.article {
   width: 98%;
   box-shadow: 0 10px 35px 2px rgb(0 0 0 / 15%), 0 5px 15px rgb(0 0 0 / 7%),
     0 2px 5px -5px rgb(0 0 0 / 10%) !important;
@@ -181,16 +173,22 @@ flex-wrap:wrap;
   align-items: center;
   min-height: 1500px;
 }
+
+.media-aside{
+  width: 20% !important;
+}
+.hljs {
+    background: #FAFAFA !important;
+}
 pre code {
   font-size: inherit;
-  color: inherit;
   word-break: normal;
-  background: saddlebrown !important;
+   
   min-height: 50px;
   display: flex;
-  color: white !important;
   align-items: center;
   border-radius: 7px;
   padding: 10px;
+  overflow: scroll;
 }
 </style>

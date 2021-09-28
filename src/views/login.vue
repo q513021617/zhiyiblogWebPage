@@ -2,45 +2,19 @@
   <div class="page">
       <div class="set">
         <!-- 中 -->
-        <div><img src="images/img01.png"></div>
-        <div><img src="images/img02.png"></div>
-        <div><img src="images/img03.png"></div>
-        <div><img src="images/img04.png"></div>
-        <div><img src="images/img05.png"></div>
-        <div><img src="images/img06.png"></div>
-        <div><img src="images/img07.png"></div>
-        <div><img src="images/img08.png"></div>
+        <div v-for="item,index in imageArr01" :key="index"><img :src="item"></div>
         </div>
         <div class="set set2">
         <!-- 前 -->
-        <div><img src="images/img08.png"></div>
-        <div><img src="images/img09.png"></div>
-        <div><img src="images/img10.png"></div>
-        <div><img src="images/img01.png"></div>
-        <div><img src="images/img02.png"></div>
-        <div><img src="images/img03.png"></div>
-        <div><img src="images/img04.png"></div>
-        <div><img src="images/img05.png"></div>
-        <div><img src="images/img06.png"></div>
-        <div><img src="images/img07.png"></div>
-        <div><img src="images/img08.png"></div>
+         <div v-for="item,index in imageArr02" :key="index"><img :src="item"></div>
         </div>
         <div class="set set3">
         <!-- 后 -->
-        <div><img src="images/img09.png"></div>
-        <div><img src="images/img10.png"></div>
-        <div><img src="images/img01.png"></div>
-        <div><img src="images/img02.png"></div>
-        <div><img src="images/img03.png"></div>
-        <div><img src="images/img04.png"></div>
-        <div><img src="images/img05.png"></div>
-        <div><img src="images/img06.png"></div>
-        <div><img src="images/img07.png"></div>
-        <div><img src="images/img08.png"></div>
+         <div v-for="item,index in imageArr03" :key="index"><img :src="item"></div>
         </div>
       <div class="container" id="container">
         <section style="z-index: 999;">
-            <div class="form-container sign-up-container" v-if="!singInShow">
+            <div class="form-container sign-up-container">
                 <div class="form">
                     <h1>zhiyigo技术分享</h1>
                     <h3>用 户 注 册</h3>
@@ -49,7 +23,7 @@
                         <a href="#" class="social"><i class="fas fa-envelope-square"></i></a>
                         <a href="#" class="social"><i class="fab fa-weixin"></i></a>
                     </div>
-                    <span>选择以上方式登录或使用您的账号</span>
+                    <span @click="showpanel()">选择以上方式登录或使用您的账号</span>
                     <input type="text" id="registerusername" v-model="username" placeholder="用户名" />
                     <input type="email" id="registeremail" v-model="email"  placeholder="邮箱" />
                     <input type="password" id="registerpassword" v-model="password" placeholder="密码" />
@@ -58,7 +32,7 @@
                     <div id="registererro" style="color: #ff416c;"></div>
                 </div>
             </div>
-            <div class="form-container sign-in-container" v-if="singInShow">
+            <div class="form-container sign-in-container">
                 <div class="form">
                     <h1>zhiyigo技术分享</h1>
                     <h3>用 户 登 录</h3>
@@ -71,23 +45,22 @@
                     <input type="text" id="loginEmail" v-model="email" placeholder="用户名" />
                     <input type="password" id="loginPassword" v-model="password" placeholder="密码" />
                     <a href="#">忘记密码？</a>
-                    <div class="no-account"  @click="singInShow=false">没有账号？</div>
+                    <div class="no-account"   @click="showpanel()">没有账号？</div>
                     <button @click="signIn()">登录</button>
                     <div id="erro" style="color: #ff416c;"></div>
                 </div>
-
             </div>
             <div class="overlay-container">
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
                         <h1>已有账号？</h1>
                         <p>请使用您的账号进行登录</p>
-                        <button class="ghost" id="signIn">登录</button>
+                        <button class="ghost" id="signIn" @click="showpanel">登录</button>
                     </div>
                     <div class="overlay-panel overlay-right">
                         <h1>没有账号？</h1>
                         <p>立即注册加入我们，和我们一起开始旅程吧。</p>
-                        <button class="ghost" id="signUp">注册</button>
+                        <button class="ghost" id="signUp" @click="showpanel">注册</button>
                     </div>
                 </div>
             </div>
@@ -127,30 +100,25 @@ export default {
             username:'',
             password:'',
             email:'',
-            singInShow:true
+            singInShow:true,
+            imageArr01:["images/img01.png","images/img02.png","images/img03.png","images/img04.png","images/img05.png"
+            ,"images/img06.png","images/img07.png","images/img08.png","images/img09.png"],
+            imageArr02:["images/img05.png","images/img10.png","images/img02.png","images/img03.png","images/img04.png","images/img05.png"],
+            imageArr03:["images/img05.png","images/img10.png","images/img02.png","images/img03.png","images/img04.png","images/img05.png"]
         }
     },
     mounted(){
         
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
-
-        signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'));
-        signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'));
     },
     methods:{
+      showpanel(){
+        this.singInShow=!this.singInShow;
+        const container = document.getElementById('container');
+        if(!this.singInShow)
+          container.classList.add('right-panel-active')
+        if(this.singInShow) container.classList.remove('right-panel-active')
+      },
         signUpFunc:async function () {
-
-
-            // let {data}=await httpmethods.axios.get('/blogapi/isExtisUser', {email:this.email,password:this.password,username:this.username})
-            //  debugger
-            //  data = data.data;
-            //     console.log(data);
-            //     if (data) {
-            //         $('#registererro').html("邮箱已注册!请重新注册邮箱");
-            //         return;
-            //     }
             httpmethods.axios.post('/blogapi/register', {email:this.email,password:this.password,username:this.username}).then( (data)=>{
                 data = data.data;
 
@@ -389,7 +357,7 @@ a {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 768px;
+  width: 100%;
   max-width: 100%;
   min-height: 480px;
 }
@@ -471,18 +439,18 @@ button.ghost {
     display: none;
   }
 @media screen and (max-width:675px){
-  .sign-in-container {  
-    width: 100%;    
+  .sign-in-container {
+    width: 100% !important;    
   }
   .sign-up-container{
     display: block;
     width: 100% !important;
   }
-  .overlay-container{
-    display: none;
-  }
   .no-account{
     display: block;
+  }
+  .overlay-container{
+    display: none;
   }
 }
 /* sign up */
@@ -576,6 +544,16 @@ button.ghost {
 @media screen and (max-width: 600px) {
   #foot {
     display: none;
+  }
+  .overlay-right {
+    display: none;
+  }
+  .overlay-left{
+    display: none;
+  }
+  .container.right-panel-active .sign-up-container{
+    
+    transform: translateX(0);
   }
 }
 </style>

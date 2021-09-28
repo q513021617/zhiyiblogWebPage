@@ -45,7 +45,7 @@
           <router-link to="/bookList">朴树书屋 </router-link>
         </li>
         <div class="head_userstatus rightfloat" id="left-menu">
-          <a href="login.html" v-if="!islogin"> 登录/注册 </a>
+          <a href="/#/login" v-if="!islogin"> 登录/注册 </a>
           <a href="#"  v-if="islogin"> 用户:{{ user.username }} </a>
           <b-popover target="left-menu" triggers="hover" placement="top">
             <template #title>个人中心</template>

@@ -1,17 +1,6 @@
 <template>
   <div class="page">
-      <div class="set">
-        <!-- 中 -->
-        <div v-for="item,index in imageArr01" :key="index"><img :src="item"></div>
-        </div>
-        <div class="set set2">
-        <!-- 前 -->
-         <div v-for="item,index in imageArr02" :key="index"><img :src="item"></div>
-        </div>
-        <div class="set set3">
-        <!-- 后 -->
-         <div v-for="item,index in imageArr03" :key="index"><img :src="item"></div>
-        </div>
+  
       <div class="container" id="container">
         <section style="z-index: 999;">
             <div class="form-container sign-up-container">
@@ -19,14 +8,12 @@
                     <h1>zhiyigo技术分享</h1>
                     <h3>用 户 注 册</h3>
                     <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social"><i class="fas fa-envelope-square"></i></a>
-                        <a href="#" class="social"><i class="fab fa-weixin"></i></a>
+                      <a href="#" class="social" v-for="ion in icons"><i :class="'fab '+ion"></i></a>
                     </div>
                     <span @click="showpanel()">选择以上方式登录或使用您的账号</span>
-                    <input type="text" id="registerusername" v-model="username" placeholder="用户名" />
-                    <input type="email" id="registeremail" v-model="email"  placeholder="邮箱" />
-                    <input type="password" id="registerpassword" v-model="password" placeholder="密码" />
+                    <input type="text" id="registerusername" v-model="userinfo.username" placeholder="用户名" />
+                    <input type="email" id="registeremail" v-model="userinfo.email"  placeholder="邮箱" />
+                    <input type="password" id="registerpassword" v-model="userinfo.password" placeholder="密码" />
 
                     <button @click="signUpFunc()">注册</button>
                     <div id="registererro" style="color: #ff416c;"></div>
@@ -37,13 +24,11 @@
                     <h1>zhiyigo技术分享</h1>
                     <h3>用 户 登 录</h3>
                     <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social"><i class="fas fa-envelope-square"></i></a>
-                        <a href="#" class="social"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social" v-for="ion in icons"><i :class="'fab '+ion"></i></a>
                     </div>
                     <span>选择以上方式登录或使用您的账号</span>
-                    <input type="text" id="loginEmail" v-model="email" placeholder="用户名" />
-                    <input type="password" id="loginPassword" v-model="password" placeholder="密码" />
+                    <input type="text" id="loginEmail" v-model="userinfo.email" placeholder="用户名" />
+                    <input type="password" id="loginPassword" v-model="userinfo.password" placeholder="密码" />
                     <a href="#">忘记密码？</a>
                     <div class="no-account"   @click="showpanel()">没有账号？</div>
                     <button @click="signIn()">登录</button>
@@ -64,51 +49,38 @@
                     </div>
                 </div>
             </div>
-    
         
         
     </section>
     </div>
 
 
-    <div id="foot" class="container-fluid" style="position: absolute;bottom: 1px;">
+    <pagefooter></pagefooter>
 
-        <div id="container">
-            <p class="leftfloat">Copyright 2018-2020 Zhiyigo.cn culture All Rights Reserved<a
-                    href="http://beian.miit.gov.cn">蜀ICP备20002097号</a></p>
-            <div class="rightfloat">
-
-                <a href="#">首页 </a> |<a href="#">关于我</a> | <a href="#">文章列表</a>
-            </div>
-        </div>
-    </div>
     </div>
 </template>
 
 <script>
-import httpmethods from '@/http/index'
-import {login} from '@/api/user'
+
+import {login,register} from '@/api/user'
+import pagefooter from "@/views/pagefooter";
 import  {
-    setCookie,
-    getCookie,
-    delCookie,
-    Cookies
+    setCookie
+
 } from '@/tools/cooks'
 export default {
     data(){
         return{
-            username:'',
-            password:'',
-            email:'',
+            userinfo:{},
             singInShow:true,
-            imageArr01:["images/img01.png","images/img02.png","images/img03.png","images/img04.png","images/img05.png"
-            ,"images/img06.png","images/img07.png","images/img08.png","images/img09.png"],
-            imageArr02:["images/img05.png","images/img10.png","images/img02.png","images/img03.png","images/img04.png","images/img05.png"],
-            imageArr03:["images/img05.png","images/img10.png","images/img02.png","images/img03.png","images/img04.png","images/img05.png"]
+            icons:['fa-user-circle','fa-envelope-square','fa-weixin']
         }
     },
     mounted(){
         
+    },
+    components:{
+      pagefooter
     },
     methods:{
       showpanel(){
@@ -119,28 +91,19 @@ export default {
         if(this.singInShow) container.classList.remove('right-panel-active')
       },
         signUpFunc:async function () {
-            httpmethods.axios.post('/blogapi/register', {email:this.email,password:this.password,username:this.username}).then( (data)=>{
-                data = data.data;
-
-                if (data != undefined && data != "") {
-                    localStorage.setItem("userData", JSON.stringify(data));
-                    setCookie("userdata", data.id);
-                    location.href = "/";
-                    return;
-                }
-            });
+          let {data}= await register(this.userinfo);
+          if(!data){
+              return
+            }
+          localStorage.setItem("userData", JSON.stringify(data));
+          setCookie("userdata", data.id);
+          location.href = "/";
         },
 
         signIn:async function () {
-            
-            console.log("登录:" + " " + this.password + " " + this.email);
-            console.log("基础路径:" + " " + httpbaseUrl);
-            // debugger
-            let {data}=await login(this.email,this.password);
-             console.log(data);
-            // debugger            
+      
+            let {data}=await login(this.userinfo.email,this.userinfo.password);       
             console.log(data);
-
             if (data.status===200) {
                 setCookie("userdata", data.data.id);
                 localStorage.setItem("userData", JSON.stringify(data.data));
@@ -169,7 +132,7 @@ export default {
 
 .page{
   font-family: Arial, Helvetica, sans-serif;
-  background: #f6f5f7;
+  background-image: url(https://api.ixiaowai.cn/gqapi/gqapi.php);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -257,41 +220,7 @@ img {
   animation: animate 15s linear infinite;
 }
 
-@keyframes animate {
-  /*动画*/
-  0% {
-    top: -10%;
-    opacity: 0;
-    /*透明度*/
-    transform: translateX(20px) rotate(0deg);
-    /*动作 X轴移动 旋转*/
-  }
 
-  10% {
-    opacity: 1;
-  }
-
-  20% {
-    transform: translateX(-20px) rotate(45deg);
-  }
-
-  40% {
-    transform: translateX(-20px) rotate(90deg);
-  }
-
-  60% {
-    transform: translateX(20px) rotate(130deg);
-  }
-
-  80% {
-    transform: translateX(-20px) rotate(180deg);
-  }
-
-  100% {
-    top: 110%;
-    transform: translateX(-20px) rotate(225deg);
-  }
-}
 
 .set2 {
   transform: scale(2) rotateY(180deg);
@@ -542,9 +471,6 @@ button.ghost {
 }
 
 @media screen and (max-width: 600px) {
-  #foot {
-    display: none;
-  }
   .overlay-right {
     display: none;
   }
@@ -554,6 +480,23 @@ button.ghost {
   .container.right-panel-active .sign-up-container{
     
     transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 1666px){
+  .b-sidebar{
+    width: 50% !important;
+  }
+  .head_menu{
+    display: none;
+  }
+  .head_menu_icon{
+    margin-top:19px;
+  }
+  .b-sidebar-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>

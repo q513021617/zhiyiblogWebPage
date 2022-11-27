@@ -15,6 +15,11 @@ export function getUser(id) {
     return httpmethods.axios.post('/blogapi/webLogin', {email:email,password:password});
   }
 
+  export function register(userinfo) {
+
+    return httpmethods.axios.post('/blogapi/register', userinfo);
+  }
+
   export function loginBytoken(url,token) {
 
     return httpmethods.axios.post('/blogapi'+url, {token:token});

@@ -10,13 +10,17 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="./favicon.ico">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="css/common.css">
 
-
-  <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+  
+  <!-- Load polyfills to support older browsers -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+  <!-- Load Vue followed by BootstrapVue -->
   <script src="js/baseUrl.js"></script>
-  <script src="js/live2d.js"></script>
+  <script src="font-awesome-4.7.0/css/font-awesome.min.css"></script>
   <title>zhiyigo技术分享</title>
 
 </head>

@@ -145,7 +145,9 @@ img{
   justify-content: flex-start;
   font-weight: 800;
 }
-
+.area_title{margin-top: 60px;display: flex;flex-direction: column;align-items: center;}
+.area_title h2{height:20px; line-height: 20px;font-size: 20px;color: #363636;font-weight:normal ;}
+.area_title p{color: #9f9f9f;font-size: 14px;line-height: 34px;}
 .b-sidebar-body div{
   width: 90%;
 }

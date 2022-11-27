@@ -2,29 +2,19 @@
   <!-- 个人卡片容器，居中卡片 -->
   <div class="wrapper">
     <!-- 个人卡片 -->
-    <div class="profile-card" >
+    <div class="profile-card">
       <!-- 卡片内容，导航，个人简介和工作经历 -->
       <div class="content">
         <!-- 导航 -->
         <nav id="nav-menu">
           <!-- data-rel，在js里获取当前要展示哪个section，是个人简介还是工作经历 -->
-          <a
-            class="active"
-            href="#"
-            @click="handleMenuItemClick(0)"
-            data-rel="about-me-section"
-            >个人简介</a
-          >
-          <a
-            href="#"
-            data-rel="work-exp-section"
-            @click="handleMenuItemClick(1)">开发经历</a
-          >
+          <a class="active" href="#" @click="handleMenuItemClick(0)" data-rel="about-me-section">个人简介</a>
+          <a href="#" data-rel="work-exp-section" @click="handleMenuItemClick(1)">开发经历</a>
           <!-- 当前选中菜单的指示条 -->
           <div class="indicator"></div>
         </nav>
         <!-- 关于我部分 -->
-        <section class="about-me-section " :class="{'active-section':showTxt==0}" >
+        <section class="about-me-section " :class="{ 'active-section': showTxt == 0 }">
           <!-- 名字和身份信息 -->
           <div class="personal-info">
             <div class="title">
@@ -46,40 +36,22 @@
           <!-- 社交图标 -->
           <footer>
             <ul>
-              <li>
-                <a href="#"
-                  ><i class="fab fa-weixin"></i
-                ></a>
+              <li v-for="ion in icons">
+                <a href="#" class="social"><i :class="'fab ' + ion"></i></a>
               </li>
-              <li>
-                <a href="#"
-                  ><i class="fab fa-weibo"></i
-                ></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><i class="fab fa-github"></i
-                ></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><i
-                    class="fab fa-linkedin"
-                  ></i
-                ></a>
-              </li>
+
             </ul>
           </footer>
         </section>
         <!-- 工作经历部分 -->
-        <section class="work-exp-section" :class="{'active-section':showTxt==1}">
+        <section class="work-exp-section" :class="{ 'active-section': showTxt == 1 }">
           <!-- 工作经历容器 -->
           <div class="work-exps">
             <!-- 每条工作经历 -->
-            <div class="work-exp-item">
+            <div class="work-exp-item" v-for="item in softlist">
               <!-- 职位 -->
               <div class="position">
-                软件工程师
+                {{ item.position }}
               </div>
               <!-- 分隔线 -->
               <div class="seperator"></div>
@@ -87,49 +59,17 @@
               <div class="work-info">
                 <!-- 工作时间 -->
                 <div class="time">
-                  2020.01 ~ 2020.02
+                  {{ item.time }}
                   <i class="far fa-calendar"></i>
                 </div>
                 <!-- 公司名称 -->
                 <div class="company">
-                  zhiyiCMS
+                  {{ item.company }}
                 </div>
               </div>
             </div>
-            <div class="work-exp-item">
-              <div class="position">
-                软件工程师
-              </div>
-              <div class="seperator"></div>
-              <div class="work-info">
-                <div class="time">
-                  2020.02.05 ~ 2016.08
-                  <i
-                    class="far fa-calendar"
-                  ></i>
-                </div>
-                <div class="company">
-                  zhiyiblog
-                </div>
-              </div>
-            </div>
-            <div class="work-exp-item">
-              <div class="position">
-                软件工程师
-              </div>
-              <div class="seperator"></div>
-              <div class="work-info">
-                <div class="time">
-                  2019.05 ~ 2019.07
-                  <i
-                    class="far fa-calendar"
-                  ></i>
-                </div>
-                <div class="company">
-                  在线考试系统
-                </div>
-              </div>
-            </div>
+
+
           </div>
         </section>
       </div>
@@ -137,8 +77,7 @@
       <aside class="profile-image">
         <img
           src="https://images.pexels.com/photos/1384218/pexels-photo-1384218.jpeg?cs=srgb&dl=man-standing-on-concrete-pavement-near-building-1384218.jpg&fm=jpg"
-          alt=""
-        />
+          alt="" />
       </aside>
     </div>
   </div>
@@ -148,36 +87,40 @@
 export default {
   data() {
     return {
-        showTxt:0
+      showTxt: 0,
+      icons: ['fa-user-circle', 'fa-envelope-square', 'fa-weixin'],
+      softlist: [{ position: "软件工程师", time: "2020.01 ~ 2020.02", company: "zhiyiCMS" },
+      { position: "软件工程师", time: "2020.02.05 ~ 2016.08", company: "zhiyiblog" },
+      { position: "软件工程师", time: "2019.05 ~ 2019.07", company: "在线考试系统" }]
     }
   },
   methods: {
-      // 点击菜单项时的事件处理函数
- handleMenuItemClick:function(index) {
-   console.log(index);
-   
-    this.showTxt=index;
-}
+    // 点击菜单项时的事件处理函数
+    handleMenuItemClick: function (index) {
+      console.log(index);
+
+      this.showTxt = index;
+    }
 
 
   },
   components: {
 
-  },created(){
+  }, created() {
 
-       // 获取导航菜单项
-const navMenuItems = document.querySelectorAll("#nav-menu a");
-// 获取指示条实例，用来做动画
-const indicator = document.querySelector(".indicator");
-var _this=this;
+    // 获取导航菜单项
+    const navMenuItems = document.querySelectorAll("#nav-menu a");
+    // 获取指示条实例，用来做动画
+    const indicator = document.querySelector(".indicator");
+    var _this = this;
 
-navMenuItems.forEach(item => {
-  // 每个菜单项点击时调用事件处理函数
-  item.addEventListener("click", e => _this.handleMenuItemClick(e.target));
+    navMenuItems.forEach(item => {
+      // 每个菜单项点击时调用事件处理函数
+      item.addEventListener("click", e => _this.handleMenuItemClick(e.target));
 
-  // 首次页面展示时，工作简介菜单是active的，先触发一次点击处理
-  item.classList.contains("active") && _this.handleMenuItemClick(item);
-});
+      // 首次页面展示时，工作简介菜单是active的，先触发一次点击处理
+      item.classList.contains("active") && _this.handleMenuItemClick(item);
+    });
 
 
 
@@ -186,8 +129,6 @@ navMenuItems.forEach(item => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
-
 :root {
   /* 主蓝色，按钮，社交图标 */
   --primary-color: #71b3dd;
@@ -209,7 +150,7 @@ navMenuItems.forEach(item => {
 
 .wrapper {
   /* 栅格布局，居中卡片 */
-  display: grid;
+  display: flex;
 
   align-items: center;
   justify-content: center;
@@ -223,31 +164,49 @@ navMenuItems.forEach(item => {
   /* 每个列之间的空隙是12px */
   column-gap: 12px;
   /* 卡片总宽度为627px */
-  width: 100%;
+  width: 70%;
   /* 卡片总高度为374px */
   height: 674px;
   box-shadow: 0px 0px 22px 3px rgba(0, 0, 0, 0.18);
 }
 
-@media screen and (max-width:377px){
-  .profile-card{
+@media screen and (max-width:577px) {
+  .profile-card {
+    width: 80%;
     grid-template-columns: repeat(1, 1fr);
+    margin-top: 300px;
   }
-  .profile-image{
+
+  .profile-image {
     display: none;
   }
-  .content{
+
+  .content {
     width: 100%;
-    }
-    .wrapper{
-      width: 100% !important;
-    }
+  }
+
+  .wrapper {
+    width: 100% !important;
+  }
+
+  .about-me-section {
+    width: 100%;
+  }
+}
+
+
+@media screen and (max-width:1377px) {
+
+  .profile-image {
+
+    max-width: 538px;
+  }
+
 }
 
 .profile-image {
   /* 图片占5列 */
   grid-column: 8 / 13;
-  max-width: 238px;
   height: 100%;
   /* 隐藏图片超出区域 */
   overflow: hidden;
@@ -259,7 +218,7 @@ navMenuItems.forEach(item => {
 
 .profile-image img {
   /* 图片放大，然后只显示一部分 */
-  width: 210%;
+  width: 100%;
   transform: translate(-205px, -280px);
   object-fit: cover;
 }
@@ -318,11 +277,13 @@ nav .indicator {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
 /* 名字 */
 .title h1 {
   font-size: 2em;
   font-weight: 500;
 }
+
 /* 身份 */
 .title p {
   color: var(--text-color-gray);
@@ -358,37 +319,13 @@ nav .indicator {
   text-align: justify;
 }
 
-/* 社交按钮部分 */
-footer {
-  margin-top: 370px;
-}
-
-footer ul {
-  display: flex;
-}
-
-footer ul li {
-  list-style: none;
-}
-
-footer ul li:not(:last-child) {
-  margin-right: 30px;
-}
-
-footer .fab {
-  color: var(--primary-color);
-  font-size: 24px;
-}
-/* ********************************* */
 
 /* 工作经历，一共3条工作经历，所以创建了3行栅格布局 */
 .work-exps {
   color: var(--text-color-gray);
   display: grid;
-  grid-template-rows: repeat(
-    3,
-    minmax(80px, auto)
-  );
+  grid-template-rows: repeat(3,
+      minmax(80px, auto));
 }
 
 /* 每个工作经历为三列栅格布局，分别为职位，分隔线、公司名和工作时间部分 */
@@ -405,6 +342,7 @@ footer .fab {
   font-size: 18px;
   font-weight: 500;
 }
+
 /* 分隔线 */
 .seperator {
   height: 43px;
@@ -423,7 +361,6 @@ footer .fab {
   color: var(--text-color-dark-gray);
   margin-top: 9px;
 }
-
 </style>
 
 

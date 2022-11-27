@@ -1,96 +1,26 @@
 <template>
   <div id="app">
-    <div id="head" class="container">
-      <div class="head_logo leftfloat">
-        <a href="/#/">
-          <img src="/images/logo.gif" alt="" title="" />
-        </a>
-      </div>
-    <b-sidebar id="sidebar-variant" title="菜单" shadow>
-      <span style="width:80%;">
-          <a href="/#/login" v-if="!islogin"> 登录/注册 </a>
-          <span v-if="islogin">用户:{{ user.username }}</span>
-        </span>
-      <b-nav vertical>
-      <b-nav-item to="/home">首页</b-nav-item>
-      <b-nav-item to="/scan">二维码扫描</b-nav-item>
-      <b-nav-item to="/aboutMe">关于我</b-nav-item>
-      <b-nav-item to="/articleList">文章列表</b-nav-item>
-      <b-nav-item to="/gameListPage">游戏列表</b-nav-item>
-      <b-nav-item to="/bookList">朴树书屋</b-nav-item>
-      <b-nav-item @click="gotomenu(0)">个人信息</b-nav-item>
-      <b-nav-item @click="gotomenu(1)">书签管理</b-nav-item>
-      <b-nav-item @click="gotomenu(2)">退出登录</b-nav-item>
-      </b-nav>
-    </b-sidebar>
-    <div class="rightfloat">
-      <div v-b-toggle.sidebar-variant class="head_menu_icon"><b-icon icon="text-indent-right" variant="primary" font-scale="2"></b-icon></div>
-      <!-- <b-button ></b-button> -->
-        <ul class="head_menu ">
-        <li>
-          <!-- class="active" -->
-          <router-link to="/home"> 首页 </router-link>
-        </li>
-        <li>
-          <router-link to="/aboutMe"> 关于我 </router-link>
-        </li>
 
-        <li>
-          <router-link to="/articleList">文章列表 </router-link>
-        </li>
-        <li>
-          <router-link to="/gameListPage">游戏列表 </router-link>
-        </li>
-        <li>
-          <router-link to="/bookList">朴树书屋 </router-link>
-        </li>
-        <div class="head_userstatus rightfloat" id="left-menu">
-          <a href="/#/login" v-if="!islogin"> 登录/注册 </a>
-          <a href="#"  v-if="islogin"> 用户:{{ user.username }} </a>
-          <b-popover target="left-menu" triggers="hover" placement="top">
-            <template #title>个人中心</template>
-            <b-list-group>
-              <b-list-group-item href="#" @mouseover="mouseOver(0)" :active="currentIndex==0" @click="gotomenu(0)">个人信息</b-list-group-item>
-              <b-list-group-item href="#"  @mouseover="mouseOver(1)" :active="currentIndex==1" @click="gotomenu(1)">书签管理</b-list-group-item>
-              <b-list-group-item href="#"  @mouseover="mouseOver(2)" :active="currentIndex==2" @click="gotomenu(2)">退出登录</b-list-group-item>      
-            </b-list-group>
-          </b-popover>
-        </div>
-      </ul>
-    </div>
-      
-    </div>
+    <commonnavbar></commonnavbar>
 
     <div style="min-height: 1200px; height: auto;width:100%">
       <div class="fixed-player" v-if="showMusic">
-        <aplayer autoplay="false" :list="musicList" :music="musicList[0]" showLrc>
-        </aplayer>
+        <!-- <Aplayer autoplay="false" :list="musicList" :music="musicList[0]" showLrc>
+        </Aplayer> -->
       </div>
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
     </div>
 
-    <div id="foot" class="container-fluid">
-      <div id="container">
-        <p class="leftfloat">
-          Copyright 2018-2020 Zhiyigo.cn culture All Rights Reserved<a
-            href="http://beian.miit.gov.cn"
-            >蜀ICP备20002097号</a
-          >
-        </p>
-        <div class="rightfloat">
-          <router-link to="/">首页 </router-link>|
-          <router-link to="/aboutme">关于我 </router-link> |
-          <router-link to="/">文章列表 </router-link>
-        </div>
-      </div>
-    </div>
+    <pagefooter></pagefooter>
   </div>
 </template>
 
 <script>
 import {getCookie,delCookie} from "@/tools/cooks";
+import pagefooter from "@/views/pagefooter";
+import commonnavbar from "@/components/commonnavbar";
 import httpmethods from "@/http";
 import Aplayer from "vue-aplayer";
 import "../../public/js/baseUrl.js";
@@ -108,7 +38,7 @@ export default {
     };
   },
   components: {
-    Aplayer,
+    Aplayer,pagefooter,commonnavbar
   },
   methods: {
     mouseOver(index){
@@ -168,6 +98,22 @@ a {
   text-decoration: none;
   color: #323232;
 }
+#app{
+        display: flex;
+        flex-direction: column;
+    }
+
+#service {overflow: hidden;min-height: 407px;position: relative;}
+    #service .service_list{text-align: center;margin-top: 34px;}
+    #service .service_list li{float: left;width: 250px;margin: 0 10px;}
+    #service .service_list div{width: 102px;height: 102px;margin: 0 auto;}
+    #service .service_list li:nth-of-type(1) div{background-image: url(/images/icon01.svg);background-repeat: no-repeat;}
+    #service .service_list li:nth-of-type(2) div{background-image: url(/images/icon01.svg);background-repeat: no-repeat;}
+    #service .service_list li:nth-of-type(3) div{background-image: url(/images/icon01.svg);background-repeat: no-repeat;}
+    #service .service_list li:nth-of-type(4) div{background-image: url(/images/icon01.svg);background-repeat: no-repeat;}
+    #service .service_list h3{font-size: 18px;color: #434343;line-height: 36px;margin-top: 25px;}
+    #service .service_list p{font-size: 14px;color: #6d6d6d;line-height: 22px;}
+
 canvas {
   margin: auto;
   touch-action: none;

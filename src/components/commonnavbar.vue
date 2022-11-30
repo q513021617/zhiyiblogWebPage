@@ -54,6 +54,7 @@ export default {
     return {
       islogin: false,
       user: {},
+      menulist:[{name}],
       navlist:[{name:'首页',url:"/home" },{name:'二维码扫描',url:"/scan" },{name:'关于我',url:"/aboutMe" },{name:'文章列表',url:"/articleList" }
           ,{name:'游戏列表',url:"/gameListPage" },{name:'朴树书屋',url:"/bookList" }],
       currentIndex:9,
